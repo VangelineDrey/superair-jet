@@ -6,13 +6,12 @@ session_start();
 if(!isset($_SESSION["login"])){
     header('location:../login/login.php'); exit;}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Superairjet | Main Data</title>
+  <title>OSKA | Main Data</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="shortcut icon" href="../assets/images/oska.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -101,21 +100,29 @@ th {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nama Maskapai</th>
+                            <th>Image</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Link</th>
+                            <th>Detail</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from maskapai");
+                        $datas = query("select * from proker");
                         $i=1;
                         foreach($datas as $data)
                         {
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['nama_maskapai']."</td>".
-                            '<td>'.'<a href="editprogram.php?id='.$data['id_maskapai'].'">'.'Change </a>'.'|'.
-                                  '<a href="deleteprogram.php?id='.$data['id_maskapai'].'">'.' Delete</a></td>'.
+                            <td>".$data['image']."</td>
+                            <td>".$data['id']."</td>
+                            <td>".$data['name']."</td>
+                            <td>".$data['redirect']."</td>
+                            <td>".$data['detail']."</td>".
+                            '<td>'.'<a href="editprogram.php?id='.$data['id'].'">'.'Change </a>'.'|'.
+                                  '<a href="deleteprogram.php?id='.$data['id'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
