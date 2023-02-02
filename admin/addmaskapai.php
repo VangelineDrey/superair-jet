@@ -8,13 +8,13 @@
 
         if(maskapai($_POST) > 0){
             echo "<script>
-        alert('Data berhasil diubah');
+        alert('Data berhasil ditambahkan!');
         document.location.href='index.php';
             </script>
             ";
             
         } else {echo "<script>
-            alert('Data gagal diubah(fileubah)');
+            alert('Data gagal ditambah.(fileubah)');
             document.location.href='index.php';
                         </script>;";
         }

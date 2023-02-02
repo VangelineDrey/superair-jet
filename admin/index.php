@@ -12,7 +12,7 @@ if(!isset($_SESSION["login"])){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OSKA | Main Data</title>
+  <title>Superairjet | Main Data</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="shortcut icon" href="../assets/images/oska.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -82,13 +82,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Program</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
-            </ol>
+            <h1>Data Maskapai</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -102,34 +96,26 @@ th {
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <a href="addprogram.php">Tambah Program Kerja</a>
+                <a href="addmaskapai.php">Tambah Maskapai</a>
                 <table id="tabel-data-two">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Link</th>
-                            <th>Detail</th>
+                            <th>Nama Maskapai</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from proker");
+                        $datas = query("select * from maskapai");
                         $i=1;
                         foreach($datas as $data)
                         {
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['image']."</td>
-                            <td>".$data['id']."</td>
-                            <td>".$data['name']."</td>
-                            <td>".$data['redirect']."</td>
-                            <td>".$data['detail']."</td>".
-                            '<td>'.'<a href="editprogram.php?id='.$data['id'].'">'.'Change </a>'.'|'.
-                                  '<a href="deleteprogram.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['nama_maskapai']."</td>".
+                            '<td>'.'<a href="editprogram.php?id='.$data['id_maskapai'].'">'.'Change </a>'.'|'.
+                                  '<a href="deleteprogram.php?id='.$data['id_maskapai'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
