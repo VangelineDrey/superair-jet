@@ -6,7 +6,8 @@ function query($query){
     global $conn;
     $result = mysqli_query($conn,$query);
     $rows=[]; 
-    while ($row= mysqli_fetch_assoc($result)){
+    while ($row= mysqli_fetch_assoc($result));
+{
         $rows[]=$row; 
     }
     return $rows;
@@ -170,7 +171,7 @@ function upload($gambar){
             $terminal= htmlspecialchars($data["terminal"]);
             $id_maskapai= htmlspecialchars($data["id_maskapai"]);
         
-            $query= "INSERT INTO artikel
+            $query= "INSERT INTO pesawat
              VALUES ('','$nomor_penerbangan','$terminal','$id_maskapai')
              ";
              mysqli_query($conn,$query);
