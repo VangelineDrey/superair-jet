@@ -110,7 +110,7 @@ th {
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from proker");
+                        $datas = query("select * from pesawat");
                         $i=1;
                         foreach($datas as $data)
                         {

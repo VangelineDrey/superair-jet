@@ -70,8 +70,12 @@
                       <input type="text" name="terminal" id="terminal" placeholder="Terminal" autocomplete="on">
                   </div>
                   <div>
-                      <input type="text" name="id_maskapai" id="id_maskapai" placeholder="id_maskapai" autocomplete="on">
-                  </div>
+                  <select name="id_maskpai">
+                      <?php foreach($results as $result){ ?>
+                          <option value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
+                      <?php } ?>
+                  </select>
+                </div>
                   <div>
                       <input type="submit" name="submit" />
                   </div>
