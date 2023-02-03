@@ -13,99 +13,36 @@ function query($query){
     return $rows;
 }
 
-function contact($data){
-    global $conn;
-
-    $nama= htmlspecialchars($data["name"]);
-    $title= htmlspecialchars($data["title"]);
-    $email= htmlspecialchars($data["email"]);
-    $message= htmlspecialchars($data["message"]);
-
-    $query= "INSERT INTO guests
-     VALUES ('','$nama','$email','$title','$message')
-     ";
-     mysqli_query($conn,$query);
-
-    return mysqli_affected_rows($conn);
-
-    
-}
-
-function program($data){
-    global $conn;
-
-    $nama= htmlspecialchars($data["name"]);
-    $destinasi= htmlspecialchars($data["destinasi"]);
-    $detail= htmlspecialchars($data["detail"]);
-    $gambar = upload("image");
-
-    $query= "INSERT INTO proker
-     VALUES ('','$nama','$detail','$destinasi','$gambar')
-     ";
-     mysqli_query($conn,$query);
-
-    return mysqli_affected_rows($conn);
-    
-}
-
-function upload($gambar){
-    $namafile=$_FILES[$gambar]['name'];
-    $sizefile=$_FILES[$gambar]['size'];
-    $error=$_FILES[$gambar]['error'];
-    $tmpname =$_FILES[$gambar]['tmp_name'];
-
-    if($error===4){
-        echo"<script>alert('Tidak menerima gambar');</script>";
-        return true;
-    }
-
-    $ekstgambarvalid=['jpg','jpeg','png','gif','JPEG'];
-    $ekstgambar=explode('.',$namafile);
-    $ekstgambar= strtolower(end($ekstgambar));
-
-    if( !in_array($ekstgambar,$ekstgambarvalid)){
-        echo"<script>alert('File Bukan gambar');</script>";
-        return false;
-    }
-    if($sizefile >10000000){
-        echo"<script>alert('Ukuran gambar terlalu besar');</script>";
-        return false;
-    }
-    
-    $namafilebaru = 'programkerja'.uniqid();
-    $namafilebaru .= '.';
-    $namafilebaru .= $ekstgambar;
-    
-    move_uploaded_file($tmpname,'images/'.$namafilebaru);
-    return $namafilebaru;
-
-}
-
-    function programedit($data){
+    function members($data){
         global $conn;
-    $id=$data["id"]; 
-    $nama= htmlspecialchars($data["name"]);
-    $destinasi= htmlspecialchars($data["redirect"]);
-    $detail= htmlspecialchars($data["detail"]);
-    $gambarlama= htmlspecialchars($data["oldimage"]);
-    
-    if($_FILES['image']['error'] === 4){
-        $gambar=$gambarlama;
-    } else {
-    $gambar= upload('image');
+
+        $nama= htmlspecialchars($data["name"]);
+
+        $query= "INSERT INTO pembeli
+        VALUES ('','$nama')
+        ";
+        mysqli_query($conn,$query);
+
+        return mysqli_affected_rows($conn);
+        
     }
 
-    $query= "UPDATE proker SET name='$nama',redirect='$destinasi',detail='$detail',image='$gambar'
-    WHERE id= $id
+    function membersedit($data){
+        global $conn;
+        $id=$data["id"]; 
+        $nama= htmlspecialchars($data["name"]);
+    
+    $query= "UPDATE pembeli SET nama_pembeli='$nama'
+    WHERE id_pembeli= $id
     ";
     mysqli_query($conn,$query);
 
     return mysqli_affected_rows($conn);
     }
 
-    function programdelete($id){
+    function membersdelete($id){
         global $conn;
-        mysqli_query($conn,"DELETE FROM proker where id = $id");
+        mysqli_query($conn,"DELETE FROM pembeli where id_pembeli = $id");
     
         return mysqli_affected_rows($conn);
     }
@@ -124,15 +61,13 @@ function upload($gambar){
         
     }
     
-        function divisiedit($data){
+        function maskapaiedit($data){
             global $conn;
         $id=$data["id"]; 
-        $nama= htmlspecialchars($data["name"]);
-        $descr= htmlspecialchars($data["descr"]);
-        $gambarlama= htmlspecialchars($data["oldimage"]);
+        $nama= htmlspecialchars($data["nama"]);
     
-        $query= "UPDATE divisi SET name='$nama',shortdesc='$descr',image='$gambar'
-        WHERE id= $id
+        $query= "UPDATE maskapai SET nama_maskapai='$nama'
+        WHERE id_maskapai= $id
         ";
         mysqli_query($conn,$query);
     
@@ -229,19 +164,7 @@ function upload($gambar){
                 return mysqli_affected_rows($conn);
             }
 
-            function members($data){
-                global $conn;
             
-                $nama= htmlspecialchars($data["name"]);
-            
-                $query= "INSERT INTO pembeli
-                 VALUES ('','$nama')
-                 ";
-                 mysqli_query($conn,$query);
-            
-                return mysqli_affected_rows($conn);
-                
-            }
             
                 function anggotaedit($data){
                     global $conn;

@@ -7,33 +7,33 @@
 
         $id=$_GET["id"];
 
-        $datass= mysqli_query($conn,"SELECT * FROM pembeli WHERE id_pembeli =$id");
+        $datass= mysqli_query($conn,"SELECT * FROM maskapai WHERE id_maskapai =$id");
         $datas=mysqli_fetch_assoc($datass);
 
     if (isset($_POST["submit"])) { 
 
-        if(membersedit($_POST) > 0){
+        if(maskapaiedit($_POST) > 0){
             echo "<script>
-        alert('Data berhasil diubah');
+        alert('Data berhasil ditambahkan!');
         document.location.href='index.php';
             </script>
             ";
             
         } else {echo "<script>
-            alert('Data gagal diubah(fileubah)');
+            alert('Data gagal ditambah.(fileubah)');
             document.location.href='index.php';
                         </script>;";
         }
         }
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en">  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Members</title>
+    <title>Edit Maskapai</title>
     <style>
-    input[type=text], textarea, date{
+    input[type=text], textarea{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -66,11 +66,12 @@
 </style>
   </head>
   <body>
-    <h3>Super Air Jet's Members</h3>
+    <h3>Maskapai Penerbangan</h3>
                <form id="program" action="" method="post" enctype="multipart/form-data">
-               <input type="hidden" name="id" value="<?= $datas["id_pembeli"]; ?>">
-                <div class="row">
-                      <input type="text" name="name" id="name" value="<?= $datas["nama_pembeli"]; ?>" placeholder="Nama Member" autocomplete="on">
+               <input type="hidden" name="id" value="<?= $datas["id_maskapai"]; ?>">
+                <div>
+                  <div>
+                      <input type="text" name="nama" id="name" placeholder="Nama Pembeli" autocomplete="on">
                   </div>
                   <div>
                       <input type="submit" name="submit" />
