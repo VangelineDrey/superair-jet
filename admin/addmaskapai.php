@@ -64,7 +64,7 @@
                <form id="program" action="" method="post" enctype="multipart/form-data">
                 <div>
                   <div>
-                      <input type="text" name="name" id="name" placeholder="Nama Maskapai" autocomplete="on">
+                      <input type="text" name="nama" id="name" placeholder="Nama Pembeli" autocomplete="on">
                   </div>
                   <div>
                       <input type="submit" name="submit" />

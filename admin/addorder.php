@@ -64,18 +64,45 @@
                <form id="program" action="" method="post" enctype="multipart/form-data">
                 <div>
                   <div>
-                      <input type="text" name="id_pembeli" id="id_pembeli" placeholder="Pembeli" autocomplete="on">
+                    <label>Pembeli</label>
+                    <select name="id_pembeli">
+                        <?php 
+                        $results=mysqli_query($conn,"SELECT * FROM pembeli");
+                        foreach($results as $result){ ?>
+                            <option value="<?php echo $result['id_pembeli'];?>"><?php echo $result['nama_pembeli'];     ?></option> 
+                        <?php } ?>
+                    </select>
+                    </div>
+                  <div>
+                    <label>Rute</label>
+                    <select name="kode_rute">
+                        <?php
+                        $results=mysqli_query($conn,"SELECT * FROM rute");
+                        foreach($results as $result){ ?>
+                            <option value="<?php echo $result['kode_rute'];?>"><?php echo $result['kode_rute'];     ?></option> 
+                        <?php } ?>
+                    </select>
+                    </div>
+                    <div>
+                    <label>Maskapai</label>
+                        <select name="id_maskapai">
+                            <?php 
+                            $results=mysqli_query($conn,"SELECT * FROM maskapai");
+                            foreach($results as $result){ ?>
+                                <option value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
+                            <?php } ?>
+                        </select>
                   </div>
                   <div>
-                      <input type="text" name="kode_rute" id="kode_rute" placeholder="kode_rute" autocomplete="on">
+                    <label>Pesawat</label>
+                        <select name="id_pesawat">
+                            <?php 
+                            $results=mysqli_query($conn,"SELECT * FROM pesawat");
+                            foreach($results as $result){ ?>
+                                <option value="<?php echo $result['id_pesawat'];?>"><?php echo $result['id_pesawat'];     ?></option> 
+                            <?php } ?>
+                        </select>
                   </div>
-                  <div>
-                      <input type="text" name="id_maskapai" id="id_maskapai" placeholder="id_maskapai" autocomplete="on">
-                  </div>
-                  <div>
-                      <input type="text" name="seq_number" id="seq_number" placeholder="seq_number" autocomplete="on">
-                  </div>
-                  
                   <div>
                       <input type="text" name="seq_number" id="seq_number" placeholder="seq_number" autocomplete="on">
                   </div>
@@ -83,7 +110,7 @@
                       <input type="text" name="pnr" id="pnr" placeholder="pnr" autocomplete="on">
                   </div>
                   <div>
-                      <input type="text" name="tanggal_penerbangan" id="tanggal_penerbangan" placeholder="tanggal_penerbangan" autocomplete="on">
+                      <input type="date" name="tanggal_penerbangan" id="tanggal_penerbangan" placeholder="tanggal_penerbangan" autocomplete="on">
                   </div>
                   <div>
                       <input type="time" name="waktu" id="waktu" placeholder="Waktu" autocomplete="on">

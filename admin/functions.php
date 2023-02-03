@@ -113,7 +113,7 @@ function upload($gambar){
     function maskapai($data){
         global $conn;
     
-        $nama= htmlspecialchars($data["name"]);
+        $nama= htmlspecialchars($data["nama"]);
     
         $query= "INSERT INTO maskapai
          VALUES ('','$nama')
@@ -155,7 +155,7 @@ function upload($gambar){
             $asal= htmlspecialchars($data["asal"]);
             $destinasi= htmlspecialchars($data["destinasi"]);
         
-            $query= "INSERT INTO artikel
+            $query= "INSERT INTO rute
              VALUES ('$kode_rute','$kelas','$waktu','$asal','$destinasi')
              ";
              mysqli_query($conn,$query);
@@ -191,7 +191,7 @@ function upload($gambar){
             $pnr= htmlspecialchars($data["pnr"]);
             $tanggal_penerbangan= htmlspecialchars($data["tanggal_penerbangan"]);
         
-            $query= "INSERT INTO artikel
+            $query= "INSERT INTO pemesanan
              VALUES ('','$id_pembeli','$kode_rute','$id_maskapai','$id_pesawat','$seq_number','$pnr','$tanggal_penerbangan')
              ";
              mysqli_query($conn,$query);
