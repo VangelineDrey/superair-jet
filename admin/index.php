@@ -81,7 +81,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Maskapai</h1>
+            <h1>Data Pesawat</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -157,7 +157,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Divisi</h1>
+            <h1>Data Maskapai</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -295,7 +295,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Keanggotaan</h1>
+            <h1>Data Rute</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
