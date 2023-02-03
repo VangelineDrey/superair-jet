@@ -1,17 +1,19 @@
 <?php
     require 'functions.php';
-    
-session_start();
-if(!isset($_SESSION["login"])){
-    header('location:../login/login.php'); exit;}
 
-    $id=$_GET["id"];
+    $results=mysqli_query($conn,"SELECT * FROM maskapai");
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header('location:../login/login.php'); exit;}
 
-    $datas= query("SELECT * FROM divisi WHERE id =$id")[0];
+        $id=$_GET["id"];
+
+        $datass= mysqli_query($conn,"SELECT * FROM pesawat WHERE id_pesawat =$id");
+        $datas=mysqli_fetch_assoc($datass);
 
     if (isset($_POST["submit"])) { 
 
-        if(divisiedit($_POST) > 0){
+        if(pesawatedit($_POST) > 0){
             echo "<script>
         alert('Data berhasil diubah');
         document.location.href='index.php';
@@ -30,7 +32,7 @@ if(!isset($_SESSION["login"])){
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tambah Program Kerja</title>
+    <title>Edit Pesawat</title>
     <style>
     input[type=text], textarea, date{
     width: 100%;
@@ -65,22 +67,24 @@ if(!isset($_SESSION["login"])){
 </style>
   </head>
   <body>
-    <h3>Anggota</h3>
+    <h3>New Jet</h3>
                <form id="program" action="" method="post" enctype="multipart/form-data">
-               <input type="hidden" name="id" value="<?= $datas["id"]; ?>">
-                <input type="hidden" name="oldimage" value="<?= $datas["image"]; ?>"> 
-               <div>
+               <input type="hidden" name="id_pesawat" value="<?= $datas["id_pesawat"]; ?>">
+                <div>
                   <div>
-                      <input type="text" name="name" id="name" placeholder="Name" autocomplete="on" value="<?= $datas["name"]; ?>">
+                      <input type="text" name="nomor_penerbangan" id="nomor_penerbangan" value="<?= $datas["nomor_penerbangan"]; ?>" placeholder="Nomor Penerbangan" autocomplete="on">
                   </div>
                   <div>
-                      <input type="text" name="descr" id="descr" placeholder="Description" autocomplete="on" value="<?= $datas["shortdesc"]; ?>">
+                      <input type="text" name="terminal" id="terminal" placeholder="Terminal" value="<?= $datas["terminal"]; ?>" autocomplete="on">
                   </div>
                   <div>
-                      <label for="image">image</label>
-                      <input type=file oninput="pic.src=window.URL.createObjectURL(this.files[0])" name="image" class="form-control @error('image') is-invalid @enderror"/>
-                      <img id="pic" src="images/<?= $datas["image"]; ?>" style="width:200px;height:auto;"/>
-                  </div>
+                    <label>Maskapai</label>
+                  <select name="id_maskapai">
+                      <?php foreach($results as $result){ ?>
+                          <option <?php if($result['id_maskapai']==$datas['id_maskapai']){ echo 'selected';} ?> value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
+                      <?php } ?>
+                  </select>
+                </div>
                   <div>
                       <input type="submit" name="submit" />
                   </div>

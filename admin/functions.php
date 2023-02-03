@@ -99,6 +99,24 @@ function query($query){
             
         }
 
+        function ruteedit($data){
+            global $conn;
+        
+            $kode_rute= htmlspecialchars($data["kode_rute"]);
+            $kelas= htmlspecialchars($data["kelas"]);
+            $waktu= htmlspecialchars($data["waktu"]);
+            $asal= htmlspecialchars($data["asal"]);
+            $destinasi= htmlspecialchars($data["destinasi"]);
+    
+            $query= "UPDATE rute SET kelas='$kelas',waktu='$waktu', asal='$asal',destinasi='$destinasi'
+            WHERE kode_rute= $kode_rute
+            ";
+             mysqli_query($conn,$query);
+        
+            return mysqli_affected_rows($conn);
+            
+        }
+
         function pesawat($data){
             global $conn;
         
@@ -109,6 +127,23 @@ function query($query){
             $query= "INSERT INTO pesawat
              VALUES ('','$nomor_penerbangan','$terminal','$id_maskapai')
              ";
+             mysqli_query($conn,$query);
+        
+            return mysqli_affected_rows($conn);
+            
+        }
+
+        function pesawatedit($data){
+            global $conn;
+        
+            $id_pesawat= htmlspecialchars($data["id_pesawat"]);
+            $nomor_penerbangan= htmlspecialchars($data["nomor_penerbangan"]);
+            $terminal= htmlspecialchars($data["terminal"]);
+            $id_maskapai= htmlspecialchars($data["id_maskapai"]);
+    
+            $query= "UPDATE pesawat SET nomor_penerbangan='$nomor_penerbangan',terminal='$terminal', id_maskapai='$id_maskapai'
+            WHERE id_pesawat= $id_pesawat
+            ";
              mysqli_query($conn,$query);
         
             return mysqli_affected_rows($conn);
@@ -128,6 +163,27 @@ function query($query){
         
             $query= "INSERT INTO pemesanan
              VALUES ('','$id_pembeli','$kode_rute','$id_maskapai','$id_pesawat','$seq_number','$pnr','$tanggal_penerbangan')
+             ";
+             mysqli_query($conn,$query);
+        
+            return mysqli_affected_rows($conn);
+            
+        }
+
+        function orderedit($data){
+            global $conn;
+
+            $id_tiket= htmlspecialchars($data["id_tiket"]);
+            $id_pembeli= htmlspecialchars($data["id_pembeli"]);
+            $kode_rute= htmlspecialchars($data["kode_rute"]);
+            $id_maskapai= htmlspecialchars($data["id_maskapai"]);
+            $id_pesawat= htmlspecialchars($data["id_pesawat"]);
+            $seq_number= htmlspecialchars($data["seq_number"]);
+            $pnr= htmlspecialchars($data["pnr"]);
+            $tanggal_penerbangan= htmlspecialchars($data["tanggal_penerbangan"]);
+        
+            $query= "UPDATE pemesanan SET id_pembeli='$id_pembeli', kode_rute='$kode_rute', id_maskapai='$id_maskapai', id_pesawat='$id_pesawat', seq_number='$seq_number', pnr='$pnr', tanggal_penerbangan='$tanggal_penerbangan'
+            WHERE id_tiket='$id_tiket'
              ";
              mysqli_query($conn,$query);
         
