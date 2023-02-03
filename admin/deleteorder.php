@@ -7,7 +7,7 @@ if(!isset($_SESSION["login"])){
 
 $id=$_GET["id"];
 
-if(programdelete($id) > 0){
+if(orderdelete($id) > 0){
     echo "<script>
 alert('Data berhasil dihapus');
 document.location.href='index.php';

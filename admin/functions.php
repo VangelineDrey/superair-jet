@@ -190,93 +190,26 @@ function query($query){
             return mysqli_affected_rows($conn);
             
         }
-        
-            function artikeledit($data){
-                global $conn;
-            $id=$data["id"]; 
-            $title= htmlspecialchars($data["title"]);
-            $kode_rute= htmlspecialchars($data["kode_rute"]);
-            $asal= htmlspecialchars($data["asal"]);
-            $destinasi= htmlspecialchars($data["destinasi"]);
-            $gambarlama= htmlspecialchars($data["oldimage"]);
-    
-            if($_FILES['image']['error'] === 4){
-                $gambar=$gambarlama;
-            } else {
-            $gambar= uploada('image');
-            }
-        
-            $query= "UPDATE artikel SET title='$title',kode_rute='$kode_rute', asal='$asal',destinasi='$destinasi',image='$gambar'
-            WHERE id= $id
-            ";
-            mysqli_query($conn,$query);
-        
-            return mysqli_affected_rows($conn);
-            }
-        
-            function artikeldelete($id){
-                global $conn;
-                mysqli_query($conn,"DELETE FROM artikel where id = $id");
-                return mysqli_affected_rows($conn);
-            }
-
             
-            
-                function anggotaedit($data){
+                function pesawatdelete($id){
                     global $conn;
-                $id=$data["id"]; 
-                $nama= htmlspecialchars($data["name"]);
-                $divisi= htmlspecialchars($data["divisi"]);
-                $dob= htmlspecialchars($data["dob"]);
-                $words= htmlspecialchars($data["words"]);
-                $akhir=htmlspecialchars($data["akhir"]);
-                $gambarlama= htmlspecialchars($data["oldimage"]);
-    
-                if($_FILES['image']['error'] === 4){
-                    $gambar=$gambarlama;
-                } else {
-                $gambar= uploadm('image');
-                }
-            
-                $query= "UPDATE anggota SET name='$nama', divisi='$divisi', dob='$dob',words='$words',image='$gambar', akhirjabatan='$akhir'
-                WHERE id= $id
-                ";
-                mysqli_query($conn,$query);
-            
-                return mysqli_affected_rows($conn);
-                }
-            
-                function anggotadelete($id){
-                    global $conn;
-                    mysqli_query($conn,"DELETE FROM anggota where id = $id");
+                    mysqli_query($conn,"DELETE FROM pesawat where id_pesawat = $id");
                     return mysqli_affected_rows($conn);
-                }    
-
-                function vote($data){
-                    global $conn;                
-                    $name= htmlspecialchars($_POST["name"]);
-                    $nik= htmlspecialchars($_POST["nik"]);
-                    $timestamps= htmlspecialchars($_POST["timestamps"]);
-                    $vote= htmlspecialchars($_POST["buhleidonea"]);
-
-                    
-                    $validations=query("SELECT * FROM pemilu where nik = '$nik' AND name='$name'");
-                    
-                    if(!empty($validations)){
-                    $validation=query("SELECT * FROM pemilu where nik = '$nik' AND name='$name'")[0];
-                    
-                        if($validation['changecount']!=1){    
-                        $query= "UPDATE pemilu SET vote = '$vote', timestamps='$timestamps', changecount=1 WHERE nik='$nik'
-                        ";
-                        mysqli_query($conn,$query);
-                        return mysqli_affected_rows($conn);
-                        }
-                        else{
-                        return 0;
-                        }
-                    }
-                    else{
-                        return mysqli_affected_rows($conn);
-                    }
-                }
+                }   
+                function maskapaidelete($id){
+                    global $conn;
+                    mysqli_query($conn,"DELETE FROM maskapai where id_maskapai = $id");
+                    return mysqli_affected_rows($conn);
+                }   
+                function orderdelete($id){
+                    global $conn;
+                    mysqli_query($conn,"DELETE FROM pemesanan where id_tiket = $id");
+                    return mysqli_affected_rows($conn);
+                }   
+                function rutedelete($id){
+                    global $conn;
+                    mysqli_query($conn,"DELETE FROM rute where kode_rute = $id");
+                    return mysqli_affected_rows($conn);
+                }   
+        
 ?>

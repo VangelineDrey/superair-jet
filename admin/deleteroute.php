@@ -7,7 +7,7 @@ if(!isset($_SESSION["login"])){
 
 $id=$_GET["id"];
 
-if(divisidelete($id) > 0){
+if(rutedelete($id) > 0){
     echo "<script>
 alert('Data berhasil dihapus');
 document.location.href='index.php';

@@ -4,12 +4,13 @@
     if(!isset($_SESSION["login"])){
         header('location:../login/login.php'); exit;}
 
-    if (isset($_POST["submit"])) { 
 
         $id=$_GET["id"];
 
         $datass= mysqli_query($conn,"SELECT * FROM pemesanan WHERE id_tiket =$id");
         $datas=mysqli_fetch_assoc($datass);
+
+    if (isset($_POST["submit"])) { 
 
         if(orderedit($_POST) > 0){
             echo "<script>
@@ -117,9 +118,6 @@
                   </div>
                   <div>
                       <input type="date" name="tanggal_penerbangan" id="tanggal_penerbangan" placeholder="tanggal_penerbangan" autocomplete="on" value="<?= $datas["tanggal_penerbangan"]; ?>">
-                  </div>
-                  <div>
-                      <input type="time" name="waktu" id="waktu" placeholder="Waktu" autocomplete="on" value="<?= $datas["waktu"]; ?>">
                   </div>
                   <div>
                       <input type="submit" name="submit" />
