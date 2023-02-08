@@ -77,6 +77,7 @@ th {
         <div class="container d-flex align-items-center flex-column">
           <div class="wrapper"><br><br><br><br><br>
 
+
           <?php
                         $datas = mysqli_query($conn,"select * from pemesanan");
                         foreach($datas as $data)
@@ -91,14 +92,14 @@ th {
                           $pembeli=mysqli_query($conn,"SELECT * FROM pembeli WHERE id_pembeli=$idp");
                           $namapembeli=mysqli_fetch_assoc($pembeli);
 
-                            echo $data['id_tiket'];
-                            echo $namapembeli['nama_pembeli'];
-                            echo $data['kode_rute'];
-                            echo $namamaskapai['nama_maskapai'];
-                            echo $data['id_pesawat'];
-                            echo $data['seq_number'];
-                            echo $data['pnr'];
-                            echo $data['tanggal_penerbangan'];
+                            echo "<p> id tiket : " .$data['id_tiket'] . "</p>";
+                            echo "<p> Nama Pembeli : " .$namapembeli['nama_pembeli']. "</p>";
+                            echo "<p> Kode Rute : " .$data['kode_rute']. "</p>";
+                            echo "<p> Nama maskapai : " . $namamaskapai['nama_maskapai']. "</p>";
+                            echo "<p> Nama Pembeli : " . $data['id_pesawat']. "</p>";
+                            echo "<p> Seq Number : " .$data['seq_number']. "</p>";
+                            echo "<p> PNR : " . $data['pnr'];
+                            echo "<p> Tanggal Penerbangan  : " . $data['tanggal_penerbangan']. "</p>";
                         }
                     ?>
 
