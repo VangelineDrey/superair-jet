@@ -67,6 +67,7 @@ if (!isset($_SESSION["login"])) {
 <body>
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+<<<<<<< HEAD
     <div class="container">
       <a class="navbar-brand" href="#page-top">Admin</a>
       <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,6 +78,94 @@ if (!isset($_SESSION["login"])) {
         <ul class="navbar-nav ms-auto">
           <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../login/logout.php">Logout</a></li>
         </ul>
+=======
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Admin</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../login/logout.php">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container d-flex align-items-center flex-column">
+          <div class="wrapper"><br><br><br><br><br>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Data Pesawat</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <a href="addpesawat.php">Tambah Pesawat</a>
+                <table id="tabel-data-two">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID Pesawat</th>
+                            <th>Nomor Penerbangan</th>
+                            <th>Terminal</th>
+                            <th>ID Maskapai</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $datas = mysqli_query($conn,"select * from pesawat");
+                        $i=1;
+                        foreach($datas as $data)
+                        {
+                          $ids=$data['id_maskapai'];
+                          $maskapai=mysqli_query($conn,"SELECT * FROM maskapai WHERE id_maskapai=$ids");
+                          $namamaskapai=mysqli_fetch_assoc($maskapai);
+                            echo "<tr>
+                            <td>".$i."</td>
+                            <td>".$data['id_pesawat']."</td>
+                            <td>".$data['nomor_penerbangan']."</td>
+                            <td>".$data['terminal']."</td>
+                            <td>".$namamaskapai["nama_maskapai"]."</td>".
+                            '<td>'.'<a href="editpesawat.php?id='.$data['id_pesawat'].'">'.'Change </a>'.'|'.
+                                  '<a href="deletepesawat.php?id='.$data['id_pesawat'].'">'.' Delete</a></td>'.
+                            "</tr>";
+                            $i++;
+                        }
+                    ?>
+                    </tbody>
+                    
+                    <script>
+                    $(document).ready(function(){
+                        $('#tabel-data-two').DataTable();
+                    });
+                </script>
+
+                </table>
+
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+>>>>>>> 2d8b8d7756dc087e28d5dcee02eb7ea40bcfa0eb
       </div>
     </div>
   </nav>
@@ -368,12 +457,20 @@ if (!isset($_SESSION["login"])) {
 
 
 
+<<<<<<< HEAD
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1>Kotak Pesan</h1>
             </div>
+=======
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Table Pemesanan</h1>
+>>>>>>> 2d8b8d7756dc087e28d5dcee02eb7ea40bcfa0eb
           </div>
         </div><!-- /.container-fluid -->
       </section>
