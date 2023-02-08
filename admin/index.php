@@ -6,7 +6,6 @@ session_start();
 if(!isset($_SESSION["login"])){
     header('location:../login/login.php'); exit;}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,13 +81,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Program</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
-            </ol>
+            <h1>Data Pesawat</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -102,34 +95,35 @@ th {
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <a href="addprogram.php">Tambah Program Kerja</a>
+                <a href="addpesawat.php">Tambah Pesawat</a>
                 <table id="tabel-data-two">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Link</th>
-                            <th>Detail</th>
+                            <th>ID Pesawat</th>
+                            <th>Nomor Penerbangan</th>
+                            <th>Terminal</th>
+                            <th>ID Maskapai</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from proker");
+                        $datas = mysqli_query($conn,"select * from pesawat");
                         $i=1;
                         foreach($datas as $data)
                         {
+                          $ids=$data['id_maskapai'];
+                          $maskapai=mysqli_query($conn,"SELECT * FROM maskapai WHERE id_maskapai=$ids");
+                          $namamaskapai=mysqli_fetch_assoc($maskapai);
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['image']."</td>
-                            <td>".$data['id']."</td>
-                            <td>".$data['name']."</td>
-                            <td>".$data['redirect']."</td>
-                            <td>".$data['detail']."</td>".
-                            '<td>'.'<a href="editprogram.php?id='.$data['id'].'">'.'Change </a>'.'|'.
-                                  '<a href="deleteprogram.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['id_pesawat']."</td>
+                            <td>".$data['nomor_penerbangan']."</td>
+                            <td>".$data['terminal']."</td>
+                            <td>".$namamaskapai["nama_maskapai"]."</td>".
+                            '<td>'.'<a href="editpesawat.php?id='.$data['id_pesawat'].'">'.'Change </a>'.'|'.
+                                  '<a href="deletepesawat.php?id='.$data['id_pesawat'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
@@ -163,7 +157,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Divisi</h1>
+            <h1>Data Maskapai</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -177,32 +171,28 @@ th {
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-              <a href="adddivisi.php">Tambah Divisi</a>
+              <a href="addmaskapai.php">Tambah Maskapai</a>
               <table id="tabel-data-three">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
+                            <th>ID Maskapai</th>
+                            <th>Nama Maskapai</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from divisi");
+                        $datas = mysqli_query($conn,"select * from maskapai");
                         $i=1;
                         foreach($datas as $data)
                         {
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['image']."</td>
-                            <td>".$data['id']."</td>
-                            <td>".$data['name']."</td>
-                            <td>".$data['shortdesc']."</td>".
-                            '<td>'.'<a href="editdivisi.php?id='.$data['id'].'">'.'Change </a>'.'|'.
-                                  '<a href="deletedivisi.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['id_maskapai']."</td>
+                            <td>".$data['nama_maskapai']."</td>".
+                            '<td>'.'<a href="editmaskapai.php?id='.$data['id_maskapai'].'">'.'Change </a>'.'|'.
+                                  '<a href="deletemaskapai.php?id='.$data['id_maskapai'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
@@ -236,7 +226,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Artikel</h1>
+            <h1>Pembeli</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -251,36 +241,28 @@ th {
               <!-- /.card-header -->
               <div class="card-body">
 
-              <a href="addnews.php">Tambah Artikel</a>
+              <a href="addmembers.php">Tambah Pembeli</a>
               <table id="tabel-data-five">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Tag</th>
-                            <th>Author</th>
-                            <th>Link</th>
+                            <th>ID Pembeli</th>
+                            <th>Nama Pembeli</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from artikel");
+                        $datas = mysqli_query($conn,"select * from pembeli");
                         $i=1;
                         foreach($datas as $data)
                         {
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['image']."</td>
-                            <td>".$data['id']."</td>
-                            <td>".$data['title']."</td>
-                            <td>".$data['tag']."</td>
-                            <td>".$data['author']."</td>
-                            <td>".$data['link']."</td>".
-                            '<td>'.'<a href="editnews.php?id='.$data['id'].'">'.'Change </a>'.'|'.
-                                  '<a href="deleteartikel.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['id_pembeli']."</td>
+                            <td>".$data['nama_pembeli']."</td>".
+                            '<td>'.'<a href="editmembers.php?id='.$data['id_pembeli'].'">'.'Change </a>'.'|'.
+                                  '<a href="deletemembers.php?id='.$data['id_pembeli'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
@@ -313,7 +295,7 @@ th {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Keanggotaan</h1>
+            <h1>Data Rute</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -328,38 +310,34 @@ th {
               <!-- /.card-header -->
               <div class="card-body">
 
-              <a href="addmembers.php">Tambah Anggota</a>
+              <a href="addroute.php">Tambah Rute</a>
                 <table id="tabel-data-six">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Image</th>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Divisi</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Short Words</th>
-                            <th>Masa Jabatan</th>
+                            <th>Kode Rute</th>
+                            <th>Kelas</th>
+                            <th>Waktu</th>
+                            <th>Asal</th>
+                            <th>Destinasi</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from anggota");
+                        $datas = mysqli_query($conn,"select * from rute");
                         $i=1;
                         foreach($datas as $data)
                         {
                             echo "<tr>
                             <td>".$i."</td>
-                            <td> <img src='images/".$data['image']."' width='150'></td>
-                            <td>".$data['id']."</td>
-                            <td>".$data['name']."</td>
-                            <td>".$data['divisi']."</td>
-                            <td>".$data['dob']."</td>
-                            <td>".$data['words']."</td>
-                            <td>".$data['akhirjabatan']."</td>".
-                            '<td>'.'<a href="editmembers.php?id='.$data['id'].'">'.'Change </a>'.'|'.
-                                  '<a href="deletemembers.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['kode_rute']."</td>
+                            <td>".$data['kelas']."</td>
+                            <td>".$data['waktu']."</td>
+                            <td>".$data['asal']."</td>
+                            <td>".$data['destinasi']."</td>>".
+                            '<td>'.'<a href="editroute.php?id='.$data['kode_rute'].'">'.'Change </a>'.'|'.
+                                  '<a href="deleteroute.php?id='.$data['kode_rute'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }
@@ -406,30 +384,51 @@ th {
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
+                
+              <a href="addorder.php">Tambah Pemesanan</a>
                 <table id="tabel-data-seven">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Title</th>
-                            <th>Message</th>
+                            <th>ID Tiket</th>
+                            <th>ID Pembeli</th>
+                            <th>Kode Rute</th>
+                            <th>ID Maskapai</th>
+                            <th>ID Pesawat</th>
+                            <th>Sequence Number</th>
+                            <th>PNR</th>
+                            <th>Tanggal Penerbangan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $datas = query("select * from guests");
+                        $datas = mysqli_query($conn,"select * from pemesanan");
                         $i=1;
                         foreach($datas as $data)
                         {
+                          
+                          $ids=$data['id_maskapai'];
+                          $maskapai=mysqli_query($conn,"SELECT * FROM maskapai WHERE id_maskapai=$ids");
+                          $namamaskapai=mysqli_fetch_assoc($maskapai);
+
+                          
+                          $idp=$data['id_pembeli'];
+                          $pembeli=mysqli_query($conn,"SELECT * FROM pembeli WHERE id_pembeli=$idp");
+                          $namapembeli=mysqli_fetch_assoc($pembeli);
+
                             echo "<tr>
                             <td>".$i."</td>
-                            <td>".$data['name']."</td>
-                            <td>".$data['email']."</td>
-                            <td>".$data['title']."</td>
-                            <td>".$data['message']."</td>".
-                            '<td>'.'<a href="#deletemessage.php?id='.$data['id'].'">'.' Delete</a></td>'.
+                            <td>".$data['id_tiket']."</td>
+                            <td>".$namapembeli['nama_pembeli']."</td>
+                            <td>".$data['kode_rute']."</td>
+                            <td>".$namamaskapai['nama_maskapai']."</td>
+                            <td>".$data['id_pesawat']."</td>
+                            <td>".$data['seq_number']."</td>
+                            <td>".$data['pnr']."</td>
+                            <td>".$data['tanggal_penerbangan']."</td>".
+                            '<td>'.'<a href="editorder.php?id='.$data['id_tiket'].'">'.'Change </a>'.'|'.
+                                  '<a href="deleteorder.php?id='.$data['id_tiket'].'">'.' Delete</a></td>'.
                             "</tr>";
                             $i++;
                         }

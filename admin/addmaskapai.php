@@ -8,13 +8,13 @@
 
         if(maskapai($_POST) > 0){
             echo "<script>
-        alert('Data berhasil diubah');
+        alert('Data berhasil ditambahkan!');
         document.location.href='index.php';
             </script>
             ";
             
         } else {echo "<script>
-            alert('Data gagal diubah(fileubah)');
+            alert('Data gagal ditambah.(fileubah)');
             document.location.href='index.php';
                         </script>;";
         }
@@ -64,7 +64,7 @@
                <form id="program" action="" method="post" enctype="multipart/form-data">
                 <div>
                   <div>
-                      <input type="text" name="name" id="name" placeholder="Nama Maskapai" autocomplete="on">
+                      <input type="text" name="nama" id="name" placeholder="Nama Pembeli" autocomplete="on">
                   </div>
                   <div>
                       <input type="submit" name="submit" />

@@ -1,5 +1,7 @@
 <?php
     require 'functions.php';
+
+    $results=mysqli_query($conn,"SELECT * FROM maskapai");
     session_start();
     if(!isset($_SESSION["login"])){
         header('location:../login/login.php'); exit;}
@@ -70,8 +72,13 @@
                       <input type="text" name="terminal" id="terminal" placeholder="Terminal" autocomplete="on">
                   </div>
                   <div>
-                      <input type="text" name="id_maskapai" id="id_maskapai" placeholder="id_maskapai" autocomplete="on">
-                  </div>
+                    <label>Maskapai</label>
+                  <select name="id_maskapai">
+                      <?php foreach($results as $result){ ?>
+                          <option value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
+                      <?php } ?>
+                  </select>
+                </div>
                   <div>
                       <input type="submit" name="submit" />
                   </div>

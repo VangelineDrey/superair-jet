@@ -4,9 +4,15 @@
     if(!isset($_SESSION["login"])){
         header('location:../login/login.php'); exit;}
 
+
+        $id=$_GET["id"];
+
+        $datass= mysqli_query($conn,"SELECT * FROM pemesanan WHERE id_tiket =$id");
+        $datas=mysqli_fetch_assoc($datass);
+
     if (isset($_POST["submit"])) { 
 
-        if(order($_POST) > 0){
+        if(orderedit($_POST) > 0){
             echo "<script>
         alert('Data berhasil diubah');
         document.location.href='index.php';
@@ -25,7 +31,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tambah Pemesanan</title>
+    <title>Edit Pemesanan</title>
     <style>
     input[type=text], textarea, date{
     width: 100%;
@@ -60,8 +66,9 @@
 </style>
   </head>
   <body>
-    <h3>New Order</h3>
+    <h3>Edit Order</h3>
                <form id="program" action="" method="post" enctype="multipart/form-data">
+               <input type="hidden" name="id_tiket" value="<?= $datas["id_tiket"]; ?>">
                 <div>
                   <div>
                     <label>Pembeli</label>
@@ -69,7 +76,7 @@
                         <?php 
                         $results=mysqli_query($conn,"SELECT * FROM pembeli");
                         foreach($results as $result){ ?>
-                            <option value="<?php echo $result['id_pembeli'];?>"><?php echo $result['nama_pembeli'];     ?></option> 
+                            <option <?php if($result['id_pembeli']==$datas['id_pembeli']){ echo 'selected';}?> value="<?php echo $result['id_pembeli'];?>"><?php echo $result['nama_pembeli'];     ?></option> 
                         <?php } ?>
                     </select>
                     </div>
@@ -79,7 +86,7 @@
                         <?php
                         $results=mysqli_query($conn,"SELECT * FROM rute");
                         foreach($results as $result){ ?>
-                            <option value="<?php echo $result['kode_rute'];?>"><?php echo $result['kode_rute'];     ?></option> 
+                            <option <?php if($result['kode_rute']==$datas['kode_rute']){ echo 'selected';}?> value="<?php echo $result['kode_rute'];?>"><?php echo $result['kode_rute'];     ?></option> 
                         <?php } ?>
                     </select>
                     </div>
@@ -89,7 +96,7 @@
                             <?php 
                             $results=mysqli_query($conn,"SELECT * FROM maskapai");
                             foreach($results as $result){ ?>
-                                <option value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
+                                <option <?php if($result['id_maskapai']==$datas['id_maskapai']){ echo 'selected';}?> value="<?php echo $result['id_maskapai'];?>"><?php echo $result['nama_maskapai'];     ?></option> 
                             <?php } ?>
                         </select>
                   </div>
@@ -99,21 +106,18 @@
                             <?php 
                             $results=mysqli_query($conn,"SELECT * FROM pesawat");
                             foreach($results as $result){ ?>
-                                <option value="<?php echo $result['id_pesawat'];?>"><?php echo $result['id_pesawat'];     ?></option> 
+                                <option <?php if($result['id_pesawat']==$datas['id_pesawat']){ echo 'selected';}?> value="<?php echo $result['id_pesawat'];?>"><?php echo $result['id_pesawat'];     ?></option> 
                             <?php } ?>
                         </select>
                   </div>
                   <div>
-                      <input type="text" name="seq_number" id="seq_number" placeholder="seq_number" autocomplete="on">
+                      <input type="text" name="seq_number" id="seq_number" placeholder="seq_number" autocomplete="on" value="<?= $datas["seq_number"]; ?>">
                   </div>
                   <div>
-                      <input type="text" name="pnr" id="pnr" placeholder="pnr" autocomplete="on">
+                      <input type="text" name="pnr" id="pnr" placeholder="pnr" autocomplete="on" value="<?= $datas["pnr"]; ?>">
                   </div>
                   <div>
-                      <input type="date" name="tanggal_penerbangan" id="tanggal_penerbangan" placeholder="tanggal_penerbangan" autocomplete="on">
-                  </div>
-                  <div>
-                      <input type="time" name="waktu" id="waktu" placeholder="Waktu" autocomplete="on">
+                      <input type="date" name="tanggal_penerbangan" id="tanggal_penerbangan" placeholder="tanggal_penerbangan" autocomplete="on" value="<?= $datas["tanggal_penerbangan"]; ?>">
                   </div>
                   <div>
                       <input type="submit" name="submit" />

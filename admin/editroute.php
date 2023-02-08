@@ -1,17 +1,18 @@
 <?php
     require 'functions.php';
-    
-session_start();
-if(!isset($_SESSION["login"])){
-    header('location:../login/login.php'); exit;}
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header('location:../login/login.php'); exit;}
 
-    $id=$_GET["id"];
 
-    $datas= query("SELECT * FROM proker WHERE id =$id")[0];
+        $id=$_GET["id"];
+
+        $datass= mysqli_query($conn,"SELECT * FROM rute WHERE kode_rute =$id");
+        $datas=mysqli_fetch_assoc($datass);
 
     if (isset($_POST["submit"])) { 
 
-        if(programedit($_POST) > 0){
+        if(ruteedit($_POST) > 0){
             echo "<script>
         alert('Data berhasil diubah');
         document.location.href='index.php';
@@ -19,7 +20,7 @@ if(!isset($_SESSION["login"])){
             ";
             
         } else {echo "<script>
-            alert('Data gagal diubah');
+            alert('Data gagal diubah(fileubah)');
             document.location.href='index.php';
                         </script>;";
         }
@@ -30,7 +31,7 @@ if(!isset($_SESSION["login"])){
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tambah Program Kerja</title>
+    <title>Edit Rute</title>
     <style>
     input[type=text], textarea, date{
     width: 100%;
@@ -65,24 +66,24 @@ if(!isset($_SESSION["login"])){
 </style>
   </head>
   <body>
-    <h3>Anggota</h3>
+    <h3>Edit Route</h3>
                <form id="program" action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?= $datas["id"]; ?>">
-                <input type="hidden" name="oldimage" value="<?= $datas["image"]; ?>">
+               <input type="hidden" name="kode_rute" value="<?= $datas["kode_rute"]; ?>">
                 <div>
                   <div>
-                      <input type="text" name="name" id="name" placeholder="Nama" autocomplete="on" value="<?= $datas["name"]; ?>">
+                    <input type="text"  disabled  name="empty" value="<?= $datas["kode_rute"]; ?>">
                   </div>
                   <div>
-                      <input type="text" name="redirect" id="link" placeholder="link" autocomplete="on" value="<?= $datas["redirect"]; ?>">
+                      <input type="text" name="kelas" id="kelas" placeholder="kelas" value="<?= $datas["kelas"]; ?>" autocomplete="on">
                   </div>
                   <div>
-                      <textarea name="detail" type="text" class="form-control" id="detail" placeholder="Detail"><?= $datas["detail"]; ?></textarea>  
+                      <input type="text" name="asal" id="asal" placeholder="Asal" value="<?= $datas["asal"]; ?>" autocomplete="on">
                   </div>
                   <div>
-                      <label for="image">image</label>
-                      <input type=file oninput="pic.src=window.URL.createObjectURL(this.files[0])" name="image" class="form-control @error('image') is-invalid @enderror"/>
-                      <img id="pic" src="images/<?= $datas["image"]; ?>"style="width:200px;height:auto;"/>
+                      <input type="text" name="destinasi" id="destinasi" placeholder="Destinasi" value="<?= $datas["destinasi"]; ?>" autocomplete="on">
+                  </div>
+                  <div>
+                      <input type="time" name="waktu" id="waktu" placeholder="Waktu" value="<?= $datas["waktu"]; ?>" autocomplete="on">
                   </div>
                   <div>
                       <input type="submit" name="submit" />
